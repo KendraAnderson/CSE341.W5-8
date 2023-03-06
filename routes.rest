@@ -1,0 +1,62 @@
+### Get all meals
+GET http://localhost:3000/meals HTTP/1.1
+
+### Get one meal
+GET http://localhost:3000/64064ff882ea65ef1d249138 HTTP/1.1
+
+<!--
+### Post a new contact
+POST http://localhost:3000/contacts HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Julie",
+    "lastName": "Kennedy",
+    "email": "theJules@yahoo.com",
+    "favoriteColor": "lime",
+    "birthday": "12/03/1988"
+}
+
+### Put new data into existing contact
+PUT http://localhost:3000/63fd723ef6000b571b419b58 HTTP/1.1
+content-type: application/json
+
+{
+    
+"firstName": "Britta",
+"lastName": "Horsley",
+"email":"britta@byui.edu",
+"favoriteColor": "cyan",
+"birthday": "03/23/1981"
+}
+
+### Delete a contact
+DELETE http://localhost:3000/63fd723ef6000b571b419b58 HTTP/1.1
+
+### Render post
+POST https://lesson-4-hju1.onrender.com/contacts
+content-type: application/json
+
+{
+    "firstName": "Julie",
+    "lastName": "Kennedy",
+    "email": "theJules@yahoo.com",
+    "favoriteColor": "green",
+    "birthday": "12/03/1988"
+}
+
+### Render put
+PUT https://lesson-4-hju1.onrender.com/63fd7353a8d930dffa30b985 HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Julie",
+    "lastName": "Kennedy",
+    "email": "theJules@yahoo.com",
+    "favoriteColor": "charcoal",
+    "birthday": "12/03/1988"
+}
+
+### Render delete
+DELETE https://lesson-4-hju1.onrender.com/63fd7353a8d930dffa30b985 HTTP/1.1
+-->
