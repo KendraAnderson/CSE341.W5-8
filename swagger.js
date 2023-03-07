@@ -5,8 +5,8 @@ const doc = {
     title: 'My API',
     description: 'Meals'
   },
-  host: 'localhost:3000',
-  schemes: ['http']
+  host: 'assignment5-f9wx.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = './swagger.json';

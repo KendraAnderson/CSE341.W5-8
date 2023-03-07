@@ -21,6 +21,29 @@ content-type: application/json
     "servings": 4
 }
 
+### Render get all meals
+GET https://assignment5-f9wx.onrender.com/meals HTTP/1.1
+
+### Render get one meal
+GET https://assignment5-f9wx.onrender.com/64064ff882ea65ef1d249138 HTTP/1.1
+
+### Render Post
+POST https://assignment5-f9wx.onrender.com/meals HTTP/1.1
+content-type: application/json
+
+{
+    "calories": 250,
+    "cookTemp": "Med High",
+    "cookTime": "15 Min",
+    "directions": "Cook chicken. Cut chicken. Place on salad.",
+    "ingredientAmounts": ["2", "4", "1/2", "1"],
+    "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
+    "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
+    "name": "Chicken Ceasar Salad",
+    "prepTime": "10 Min",
+    "servings": 4
+}
+
 ### Put new data into existing contact
 ###PUT http://localhost:3000/63fd723ef6000b571b419b58 HTTP/1.1
 ###content-type: application/json
