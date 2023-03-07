@@ -30,6 +30,58 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "calories": {
+                  "example": "any"
+                },
+                "cookTemp": {
+                  "example": "any"
+                },
+                "cookTime": {
+                  "example": "any"
+                },
+                "directions": {
+                  "example": "any"
+                },
+                "ingredientAmounts": {
+                  "example": "any"
+                },
+                "ingredientUnits": {
+                  "example": "any"
+                },
+                "ingredients": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "prepTime": {
+                  "example": "any"
+                },
+                "servings": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/{id}": {

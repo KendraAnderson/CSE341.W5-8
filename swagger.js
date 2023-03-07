@@ -18,6 +18,6 @@ const endpointsFiles = ['./routes/index.js'];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
 
-/*swaggerAutogen(outputFile, endpointsFiles, doc).then(async () => {
-  await import('./index.js');
-});*/
+//swaggerAutogen(outputFile, endpointsFiles, doc).then(async () => {
+//  await import('./index.js');
+//});

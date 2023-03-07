@@ -8,10 +8,10 @@ routes.get('/meals', myController.getMeals);
 
 //Define route for contacts function
 routes.get('/:id', myController.getOneMeal);
-/*
-//Define a route for posting to contacts
-routes.post('/contacts', myController.addContact);
 
+//Define a route for posting to contacts
+routes.post('/meals', myController.addMeal);
+/*
 //Define route for changing a contact
 routes.put('/:id', myController.updateContact);
 

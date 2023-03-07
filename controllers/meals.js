@@ -20,24 +20,28 @@ const getOneMeal = async (req, res) => {
   });
 };
 
-/*
 //Define a function to post one contact to contacts list
-const addContact = async (req, res) => {
-  const newContact = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    favoriteColor: req.body.favoriteColor,
-    birthday: req.body.birthday
+const addMeal = async (req, res) => {
+  const newMeal = {
+    calories: req.body.calories,
+    cookTemp: req.body.cookTemp,
+    cookTime: req.body.cookTime,
+    directions: req.body.directions,
+    ingredientAmounts: req.body.ingredientAmounts,
+    ingredientUnits: req.body.ingredientUnits,
+    ingredients: req.body.ingredients,
+    name: req.body.name,
+    prepTime: req.body.prepTime,
+    servings: req.body.servings
   };
-  const response = await mongodb.getDb().db().collection('Contacts').insertOne(newContact);
+  const response = await mongodb.getDb().db().collection('Meals').insertOne(newMeal);
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {
-    res.status(500).json(response.error || 'Contact not created. Try again.');
+    res.status(500).json(response.error || 'Meal not created. Try again.');
   }
 };
-
+/*
 //Define a function to change a contact's data by their id
 const updateContact = async (req, res) => {
   const userId = new ObjectId(req.params.id);
@@ -77,4 +81,4 @@ const deleteContact = async (req, res) => {
   }
 };*/
 
-module.exports = { getMeals, getOneMeal/*, addContact, updateContact, deleteContact*/ };
+module.exports = { getMeals, getOneMeal, addMeal /*, updateContact, deleteContact*/ };
