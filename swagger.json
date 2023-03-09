@@ -5,9 +5,11 @@
     "description": "Meals",
     "version": "1.0.0"
   },
-  "host": "assignment5-f9wx.onrender.com",
+  "host": "lesson-5-u9we.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/api-docs": {
       "get": {
@@ -19,57 +21,57 @@
     "/meals": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "calories": {
-                  "example": "any"
-                },
-                "cookTemp": {
-                  "example": "any"
-                },
-                "cookTime": {
-                  "example": "any"
-                },
-                "directions": {
-                  "example": "any"
-                },
-                "ingredientAmounts": {
-                  "example": "any"
-                },
-                "ingredientUnits": {
-                  "example": "any"
-                },
-                "ingredients": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                },
-                "prepTime": {
-                  "example": "any"
-                },
-                "servings": {
-                  "example": "any"
-                }
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "calories": {
+                "example": "any"
+              },
+              "cookTemp": {
+                "example": "any"
+              },
+              "cookTime": {
+                "example": "any"
+              },
+              "directions": {
+                "example": "any"
+              },
+              "ingredientAmounts": {
+                "example": "any"
+              },
+              "ingredientUnits": {
+                "example": "any"
+              },
+              "ingredients": {
+                "example": "any"
+              },
+              "mealName": {
+                "example": "any"
+              },
+              "prepTime": {
+                "example": "any"
+              },
+              "servings": {
+                "example": "any"
               }
             }
           }
-        ],
+        }],
         "responses": {
           "201": {
             "description": "Created"
@@ -80,21 +82,45 @@
         }
       }
     },
-    "/{id}": {
+    "/": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "Created user object",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Credentials",
+            "type": "object",
+            "properties": {
+              "username": {
+                "example": "any"
+              },
+              "password": {
+                "example": "any"
+              }
+            }
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
