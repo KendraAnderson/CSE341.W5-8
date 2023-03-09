@@ -1,8 +1,14 @@
 ### Get all meals
 GET http://localhost:3000/meals HTTP/1.1
 
+###Get all users
+GET http://localhost:3000/ HTTP/1.1
+
 ### Get one meal
-GET http://localhost:3000/64064ff882ea65ef1d249138 HTTP/1.1
+//GET http://localhost:3000/Tator+Tot+Casserole HTTP/1.1
+
+### Get one user
+//GET http://localhost:3000/yoyo HTTP/1.1
 
 ### Post a new meal
 POST http://localhost:3000/meals HTTP/1.1
@@ -16,9 +22,18 @@ content-type: application/json
     "ingredientAmounts": ["2", "4", "1/2", "1"],
     "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
     "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
-    "name": "Chicken Ceasar Salad",
+    "mealName": "Chicken Ceasar Salad",
     "prepTime": "10 Min",
     "servings": 4
+}
+
+### Post a new user
+POST http://localhost:3000/ HTTP/1.1
+content-type: application/json
+
+{
+    "username": "yoyo",
+    "password": "number"
 }
 
 ### Render get all meals
@@ -39,7 +54,7 @@ content-type: application/json
     "ingredientAmounts": ["2", "4", "1/2", "1"],
     "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
     "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
-    "name": "Chicken Ceasar Salad",
+    "mealName": "Chicken Ceasar Salad",
     "prepTime": "10 Min",
     "servings": 4
 }
