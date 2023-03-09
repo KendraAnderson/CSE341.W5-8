@@ -7,9 +7,7 @@
   },
   "host": "lesson-5-u9we.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/api-docs": {
       "get": {
@@ -33,45 +31,47 @@
       },
       "post": {
         "description": "",
-        "parameters": [{
-          "name": "body",
-          "in": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "calories": {
-                "example": "any"
-              },
-              "cookTemp": {
-                "example": "any"
-              },
-              "cookTime": {
-                "example": "any"
-              },
-              "directions": {
-                "example": "any"
-              },
-              "ingredientAmounts": {
-                "example": "any"
-              },
-              "ingredientUnits": {
-                "example": "any"
-              },
-              "ingredients": {
-                "example": "any"
-              },
-              "mealName": {
-                "example": "any"
-              },
-              "prepTime": {
-                "example": "any"
-              },
-              "servings": {
-                "example": "any"
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "calories": {
+                  "example": "any"
+                },
+                "cookTemp": {
+                  "example": "any"
+                },
+                "cookTime": {
+                  "example": "any"
+                },
+                "directions": {
+                  "example": "any"
+                },
+                "ingredientAmounts": {
+                  "example": "any"
+                },
+                "ingredientUnits": {
+                  "example": "any"
+                },
+                "ingredients": {
+                  "example": "any"
+                },
+                "mealName": {
+                  "example": "any"
+                },
+                "prepTime": {
+                  "example": "any"
+                },
+                "servings": {
+                  "example": "any"
+                }
               }
             }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -97,24 +97,26 @@
       },
       "post": {
         "description": "",
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "description": "Created user object",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Credentials",
-            "type": "object",
-            "properties": {
-              "username": {
-                "example": "any"
-              },
-              "password": {
-                "example": "any"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Credentials",
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
               }
             }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "Created"
