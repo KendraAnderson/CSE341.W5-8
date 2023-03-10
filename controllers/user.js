@@ -36,6 +36,7 @@ const getAll = (req, res) => {
 
 const getUser = (req, res) => {
   const username = req.params.username;
+  console.log(username);
   User.find({ username: username })
     .then((data) => {
       res.send(data);

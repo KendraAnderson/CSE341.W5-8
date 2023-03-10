@@ -17,14 +17,15 @@ const getMeals = (req, res) => {
 //Define a function to get one meal by id
 const getOneMeal = (req, res) => {
   const mealName = req.params.mealName;
+  console.log(mealName);
   Meal.find({ mealName: mealName })
     .then((data) => {
-      if (!data) res.status(404).send({ message: mealName + ' not found.' });
+      if (!data) res.status(404).send({ message: 'Meal including the word ' + mealName + ' not found.' });
       else res.send(data[0]);
     })
     .catch((err) => {
       res.status(500).send({
-        message: 'Error retrieving meal with name: ' + mealName,
+        message: 'Error retrieving meal including the word: ' + mealName,
         error: err
       });
     });

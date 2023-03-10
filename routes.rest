@@ -1,6 +1,9 @@
 ### Get all meals
 GET http://localhost:3000/meals HTTP/1.1
 
+###Get One Meal
+GET http://localhost:3000/meals/Tator%20Tot%20Casserole HTTP/1.1
+
 ### Post a new meal
 POST http://localhost:3000/meals HTTP/1.1
 content-type: application/json
@@ -18,9 +21,11 @@ content-type: application/json
     "servings": 4
 }
 
-
 ###Get all users
 GET http://localhost:3000/ HTTP/1.1
+
+###Get One User
+GET http://localhost:3000/users/yoyo HTTP/1.1
 
 ### Post a new user
 POST http://localhost:3000/ HTTP/1.1

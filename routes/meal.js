@@ -7,7 +7,7 @@ const myController = require('../controllers/meal');
 routes.get('/meals', myController.getMeals);
 
 //Define route for contacts function
-routes.get('/:mealName', myController.getOneMeal);
+routes.get('/meals/:mealName', myController.getOneMeal);
 
 //Define a route for posting to contacts
 routes.post('/meals', myController.addMeal);
