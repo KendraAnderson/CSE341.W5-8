@@ -108,7 +108,7 @@
         }
       }
     },
-    "/": {
+    "/users": {
       "get": {
         "description": "",
         "parameters": [],
