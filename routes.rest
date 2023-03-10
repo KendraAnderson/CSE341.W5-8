@@ -36,8 +36,13 @@ content-type: application/json
     "password": "number"
 }
 
+
+
 ### Render get all meals
 GET https://lesson-5-u9we.onrender.com/meals HTTP/1.1
+
+### Render get one meal
+GET https://lesson-5-u9we.onrender.com/meals/Tator%20Tot%20Casserole HTTP/1.1
 
 ### Render post new meal
 POST https://lesson-5-u9we.onrender.com/meals HTTP/1.1
@@ -58,6 +63,9 @@ content-type: application/json
 
 ###Render get all users
 GET https://lesson-5-u9we.onrender.com/ HTTP/1.1
+
+### Render get One User
+GET https://lesson-5-u9we.onrender.com/users/yoyo HTTP/1.1
 
 ### Render post a new user
 POST https://lesson-5-u9we.onrender.com/ HTTP/1.1
