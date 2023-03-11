@@ -1,8 +1,8 @@
 ### Get all meals
 GET http://localhost:3000/meals HTTP/1.1
 
-###Get One Meal
-GET http://localhost:3000/meals/Tator%20Tot%20Casserole HTTP/1.1
+### Get One Meal
+GET http://localhost:3000/meals/Chicken%20Pizza HTTP/1.1
 
 ### Post a new meal
 POST http://localhost:3000/meals HTTP/1.1
@@ -12,7 +12,24 @@ content-type: application/json
     "calories": 250,
     "cookTemp": "Med High",
     "cookTime": "15 Min",
-    "directions": "Cook chicken. Cut chicken. Place on salad.",
+    "directions": "Cut chicken. Place on salad.",
+    "ingredientAmounts": ["2", "4", "1/2", "1"],
+    "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
+    "ingredients":  ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
+    "mealName": "Chicken Ceasar Salad",
+    "prepTime": "10 Min",
+    "servings": 4
+}
+
+### Change a meal by meal name
+PUT http://localhost:3000/meals/Chicken%20Ceasar%20Salad HTTP/1.1
+content-type: application/json
+
+{
+    "calories": 250,
+    "cookTemp": "Med High",
+    "cookTime": "15 Min",
+    "directions": "dsfsdffr",
     "ingredientAmounts": ["2", "4", "1/2", "1"],
     "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
     "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
@@ -21,10 +38,13 @@ content-type: application/json
     "servings": 4
 }
 
-###Get all users
+### Delete a meal by name
+DELETE http://localhost:3000/meals/Chicken%20Ceasar%20Salad HTTP/1.1
+
+### Get all users
 GET http://localhost:3000/users HTTP/1.1
 
-###Get One User
+### Get One User
 GET http://localhost:3000/users/yoyo HTTP/1.1
 
 ### Post a new user
@@ -32,11 +52,24 @@ POST http://localhost:3000/users HTTP/1.1
 content-type: application/json
 
 {
-    "username": "yoyo",
-    "password": "number"
+    "username": "dasda",
+    "password": "nuF45!mber"
 }
 
+### Change a user by username
+PUT http://localhost:3000/users/sone HTTP/1.1
+content-type: application/json
 
+{
+    "username": "sonsdfe",
+    "password": "nuD34!her"
+}
+
+### Delete a user by username
+DELETE http://localhost:3000/users/num HTTP/1.1
+
+
+### Render requests ###
 
 ### Render get all meals
 GET https://lesson-5-u9we.onrender.com/meals HTTP/1.1
@@ -61,14 +94,14 @@ content-type: application/json
     "servings": 4
 }
 
-###Render get all users
-GET https://lesson-5-u9we.onrender.com/ HTTP/1.1
+### Render get all users
+GET https://lesson-5-u9we.onrender.com/users HTTP/1.1
 
 ### Render get One User
 GET https://lesson-5-u9we.onrender.com/users/yoyo HTTP/1.1
 
 ### Render post a new user
-POST https://lesson-5-u9we.onrender.com/ HTTP/1.1
+POST https://lesson-5-u9we.onrender.com/users HTTP/1.1
 content-type: application/json
 
 {

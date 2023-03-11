@@ -1,89 +1,104 @@
 const db = require('../models');
 const Meal = db.meal;
+const mealUtil = require('./validation');
 
-//Define a function to get all meals
+// Define a function to get all meals
 const getMeals = (req, res) => {
-  Meal.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occured while retrieving meals.'
+  try {
+    Meal.find({})
+      .then((data) => {
+        res.send(data);
       });
-    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json( err || 'Some error occured while retrieving meals.' );
+  }
 };
 
-//Define a function to get one meal by id
+// Define a function to get one meal by id
 const getOneMeal = (req, res) => {
-  const mealName = req.params.mealName;
-  console.log(mealName);
-  Meal.find({ mealName: mealName })
-    .then((data) => {
-      if (!data) res.status(404).send({ message: 'Meal including the word ' + mealName + ' not found.' });
-      else res.send(data[0]);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: 'Error retrieving meal including the word: ' + mealName,
-        error: err
+  try {
+    const mealName = req.params.mealName;
+    Meal.find({ mealName: mealName })
+      .then((data) => {
+        if (!data[0]) {
+          res.status(404).send({ message: mealName + ' not found.' });
+        }
+        res.status(200).json(data[0]);
       });
-    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json( err || 'Some error occured while retrieving meal.' );
+  }
 };
 
-//Define a function to post one meal to meals list
+// Define a function to post one meal to meals list
 const addMeal = (req, res) => {
-  const newMeal = new Meal(req.body);
-  newMeal
-    .save()
-    .then((data) => {
-      console.log(data);
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || 'Some error occurred while creating the meal.'
+  try {
+    if (!req.body.calories || !req.body.cookTemp ||
+      !req.body.cookTime || !req.body.directions ||
+      !req.body.ingredientAmounts || !req.body.ingredientUnits ||
+      !req.body.ingredients || !req.body.mealName ||
+      !req.body.prepTime || !req.body.servings) {
+      res.status(400).send({ message: 'Please fill in all fields!' });
+      return;
+    }
+    const newMeal = new Meal(req.body);
+    mealUtil.validateMeal(newMeal);
+    //if(!validMeal) {console.log("failed val");};
+    newMeal.save()
+      .then((data) => {
+        console.log(data);
+        res.status(201).send(data);
       });
-    });
-};
-/*
-//Define a function to change a contact's data by their id
-const updateContact = async (req, res) => {
-  const userId = new ObjectId(req.params.id);
-  const contact = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    favoriteColor: req.body.favoriteColor,
-    birthday: req.body.birthday
-  };
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection('Contacts')
-    .replaceOne({ _id: userId }, contact);
-  console.log(response);
-  if (response.modifiedCount > 0) {
-    res.status(204).send();
-  } else {
-    res.status(500).json(response.error || 'Contact not updated. Try again.');
+  } catch (err) {
+    console.log(err);
+    res.status(500).json( err || 'Some error occured while creating the meal.' );
   }
 };
 
-//Define a function to delete a contact by id
-const deleteContact = async (req, res) => {
-  const userId = new ObjectId(req.params.id);
-  const response = await mongodb
-    .getDb()
-    .db()
-    .collection('Contacts')
-    .deleteOne({ _id: userId }, true);
-  console.log(response);
-  if (response.deletedCount > 0) {
-    res.status(200).send();
-  } else {
-    res.status(500).json(response.error || ' Contact not deleted. Try again.');
-  }
-};*/
+// Define a function to change a meal's data by meal name
+const updateMeal = async (req, res) => {
+  try {
 
-module.exports = { getMeals, addMeal, getOneMeal /*, updateContact, deleteContact*/ };
+    const meal = {
+      calories: req.body.calories,
+      cookTemp: req.body.cookTemp,
+      cookTime: req.body.cookTime,
+      directions: req.body.directions,
+      ingredientAmounts: req.body.ingredientAmounts,
+      ingredientUnits: req.body.ingredientUnits,
+      ingredients: req.body.ingredients,
+      mealName: req.body.mealName,
+      prepTime: req.body.prepTime,
+      servings: req.body.servings,
+    }
+
+    const mealName = req.params.mealName;
+    const result = await Meal.replaceOne({ mealName: mealName }, meal);
+    console.log(`${result.modifiedCount} meal(s) updated: ` + mealName);
+    if (result.modifiedCount > 0) {
+      res.status(204).send(result);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json( err || 'Some error occured while updating meal.' );
+  }
+};
+
+//Define a function to delete a meal by meal name
+const deleteMeal = async (req, res) => {
+  try {
+    const mealName = req.params.mealName;
+    const result = await Meal.deleteOne({ mealName: mealName });
+    console.log(`${result.deletedCount} meal(s) deleted: ` + mealName);
+    if (result.deletedCount > 0) {
+      res.status(204).send(result);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err || 'Some error occurred while deleting the meal.');
+  }
+};
+
+module.exports = { getMeals, addMeal, getOneMeal, updateMeal, deleteMeal };
