@@ -72,13 +72,13 @@ DELETE http://localhost:3000/users/num HTTP/1.1
 ### Render requests ###
 
 ### Render get all meals
-GET https://lesson-5-u9we.onrender.com/meals HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/meals HTTP/1.1
 
 ### Render get one meal
-GET https://lesson-5-u9we.onrender.com/meals/Tator%20Tot%20Casserole HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/meals/Tator%20Tot%20Casserole HTTP/1.1
 
 ### Render post new meal
-POST https://lesson-5-u9we.onrender.com/meals HTTP/1.1
+POST https://lesson6-tzbz.onrender.com/meals HTTP/1.1
 content-type: application/json
 
 {
@@ -94,17 +94,49 @@ content-type: application/json
     "servings": 4
 }
 
+### Render put a meal by mealname
+PUT https://lesson6-tzbz.onrender.com/meals/Chicken%20Ceasar%20Salad HTTP/1.1
+content-type: application/json
+
+{
+    "calories": 250,
+    "cookTemp": "Med High",
+    "cookTime": "15 Min",
+    "directions": "asdfasdfdsf",
+    "ingredientAmounts": ["2", "4", "1/2", "1"],
+    "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
+    "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
+    "mealName": "Chicken Ceasar Salad",
+    "prepTime": "10 Min",
+    "servings": 4
+}
+
+### Render Delete a meal by mealname
+DELETE https://lesson6-tzbz.onrender.com/meals/Chicken%20Ceasar%20Salad HTTP/1.1
+
 ### Render get all users
-GET https://lesson-5-u9we.onrender.com/users HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/users HTTP/1.1
 
 ### Render get One User
-GET https://lesson-5-u9we.onrender.com/users/yoyo HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/users/yoyo HTTP/1.1
 
 ### Render post a new user
-POST https://lesson-5-u9we.onrender.com/users HTTP/1.1
+POST https://lesson6-tzbz.onrender.com/users HTTP/1.1
 content-type: application/json
 
 {
     "username": "yoyo",
     "password": "number"
 }
+
+### Render put a user by username
+PUT https://lesson6-tzbz.onrender.com/users/yoyo HTTP/1.1
+content-type: application/json
+
+{
+    "username": "yoyo",
+    "password": "numsdfdfber"
+}
+
+### Render delete a user by username
+DELETE https://lesson6-tzbz.onrender.com/users/yoyo HTTP/1.1
