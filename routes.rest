@@ -75,7 +75,7 @@ DELETE http://localhost:3000/users/num HTTP/1.1
 GET https://lesson6-tzbz.onrender.com/meals HTTP/1.1
 
 ### Render get one meal
-GET https://lesson6-tzbz.onrender.com/meals/Tator%20Tot%20Casserole HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/meals/Chicken%20Pizza HTTP/1.1
 
 ### Render post new meal
 POST https://lesson6-tzbz.onrender.com/meals HTTP/1.1
@@ -102,7 +102,7 @@ content-type: application/json
     "calories": 250,
     "cookTemp": "Med High",
     "cookTime": "15 Min",
-    "directions": "asdfasdfdsf",
+    "directions": "ffffffffffff",
     "ingredientAmounts": ["2", "4", "1/2", "1"],
     "ingredientUnits": ["Cup", "Cup", "Cup", "Cup"],
     "ingredients": ["Chicken Breast", "Romaine Lettuce", "Shredded Parmesan Cheese", "Croutons"],
@@ -118,7 +118,7 @@ DELETE https://lesson6-tzbz.onrender.com/meals/Chicken%20Ceasar%20Salad HTTP/1.1
 GET https://lesson6-tzbz.onrender.com/users HTTP/1.1
 
 ### Render get One User
-GET https://lesson6-tzbz.onrender.com/users/yoyo HTTP/1.1
+GET https://lesson6-tzbz.onrender.com/users/dasda HTTP/1.1
 
 ### Render post a new user
 POST https://lesson6-tzbz.onrender.com/users HTTP/1.1
@@ -126,7 +126,7 @@ content-type: application/json
 
 {
     "username": "yoyo",
-    "password": "number"
+    "password": "numbF5$er"
 }
 
 ### Render put a user by username
@@ -135,7 +135,7 @@ content-type: application/json
 
 {
     "username": "yoyo",
-    "password": "numsdfdfber"
+    "password": "numsdf%5Gdfber"
 }
 
 ### Render delete a user by username
