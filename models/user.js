@@ -1,6 +1,6 @@
 module.exports = (mongoose) => {
   const userSchema = mongoose.Schema({
-    username: {
+    email: {
       type: String
     },
     password: {

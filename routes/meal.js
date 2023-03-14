@@ -1,20 +1,21 @@
 //Define constants
 const routes = require('express').Router();
 const myController = require('../controllers/meal');
+const { requiresAuth } = require('express-openid-connect');
 
 // Define route to get all meals
-routes.get('/meals', myController.getMeals);
+routes.get('/meals', requiresAuth(), myController.getMeals);
 
 // Define route for contacts function
-routes.get('/meals/:mealName', myController.getOneMeal);
+routes.get('/meals/:mealName', requiresAuth(), myController.getOneMeal);
 
 // Define a route for posting to contacts
-routes.post('/meals', myController.addMeal);
+routes.post('/meals', requiresAuth(), myController.addMeal);
 
 // Define route for changing a meal
-routes.put('/meals/:mealName', myController.updateMeal);
+routes.put('/meals/:mealName', requiresAuth(), myController.updateMeal);
 
 // Define route for deleting a meal
-routes.delete('/meals/:mealName', myController.deleteMeal);
+routes.delete('/meals/:mealName', requiresAuth(), myController.deleteMeal);
 
 module.exports = routes;
