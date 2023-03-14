@@ -49,6 +49,12 @@ const create = (req, res) => {
         return callback(err || new Error('the user already exists'));
       }
       const password = req.body.password;
+      // Check password for requirements
+      const passwordCheck = passwordUtil.passwordPass(password);
+      if (passwordCheck.error) {
+        res.status(400).send({ message: passwordCheck.error });
+        return;
+      }
       // Hash password
       bcrypt.hash(password, 10, function (err, hash) {
         if (err) {
