@@ -5,7 +5,7 @@
     "description": "Meals",
     "version": "1.0.0"
   },
-  "host": "lesson6-tzbz.onrender.com",
+  "host": "lesson7.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
