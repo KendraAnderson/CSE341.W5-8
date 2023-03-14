@@ -48,38 +48,39 @@ const create = (req, res) => {
         client.close();
         return callback(err || new Error('the user already exists'));
       }
-      const password = req.body.password;
-      // Check password for requirements
-      const passwordCheck = passwordUtil.passwordPass(password);
-      if (passwordCheck.error) {
-        res.status(400).send({ message: passwordCheck.error });
-        return;
-      }
-      // Hash password
-      bcrypt.hash(password, 10, function (err, hash) {
-        if (err) {
-          //client.close();
-          return callback(err);
-        }
-
-        const user = new User(req.body);
-
-        user.password = hash;
-        //user.email_verified = false;
-        user.email = email;
-        /*User.insert(user, function (err, inserted) {
-          //client.close();
-          
-          if (err) return callback(err);
-          callback(null);
-        });*/
-        user.save()
-          .then((data) => {
-            res.status(201).send(data);
-            console.log(`User (${user.email}) created.`);
-          });
-      });
     });
+    const password = req.body.password;
+    // Check password for requirements
+    const passwordCheck = passwordUtil.passwordPass(password);
+    if (passwordCheck.error) {
+      res.status(400).send({ message: passwordCheck.error });
+      return;
+    }
+    // Hash password
+    const hash = bcrypt.hash(password, 10, function (err, hash) {
+      if (err) {
+        //client.close();
+        return callback(err);
+      } else {
+        return hash;
+      }
+    });
+    const user = new User(req.body);
+
+    user.password = hash;
+    //user.email_verified = false;
+    user.email = email;
+    /*User.insert(user, function (err, inserted) {
+      //client.close();
+      
+      if (err) return callback(err);
+      callback(null);
+    });*/
+    user.save()
+      .then((data) => {
+        res.status(201).send(data);
+        console.log(`User (${user.email}) created.`);
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
