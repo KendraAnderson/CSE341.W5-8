@@ -55,11 +55,9 @@ const create = (req, res) => {
         return hash;
       }
     });
+    req.body.password = hash;
     const user = new User(req.body);
 
-    user.password = hash;
-    //user.email_verified = false;
-    user.email = email;
     user.save()
       .then((data) => {
         res.status(201).send(data);
