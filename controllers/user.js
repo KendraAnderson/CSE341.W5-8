@@ -36,7 +36,7 @@ const getUser = (req, res) => {
 // Define a function to create a user
 const create = (req, res) => {
   try {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
     }
