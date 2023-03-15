@@ -4,10 +4,10 @@ const myController = require('../controllers/meal');
 const { requiresAuth } = require('express-openid-connect');
 
 // Define route to get all meals
-routes.get('/meals', requiresAuth(), myController.getMeals);
+routes.get('/meals', myController.getMeals);
 
 // Define route for contacts function
-routes.get('/meals/:mealName', requiresAuth(), myController.getOneMeal);
+routes.get('/meals/:mealName', myController.getOneMeal);
 
 // Define a route for posting to contacts
 routes.post('/meals', requiresAuth(), myController.addMeal);

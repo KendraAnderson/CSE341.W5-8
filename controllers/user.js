@@ -40,7 +40,7 @@ const create = (req, res) => {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
     }
-
+    console.log(req.body.email);
     const email = req.params.email;
     // Check to see if user already exists then hash
     User.findOne({ email: email }, function (err, withSameMail) {

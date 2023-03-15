@@ -3,10 +3,10 @@ const userController = require('../controllers/user');
 const { requiresAuth } = require('express-openid-connect');
 
 // Define a route to get all users
-routes.get('/users', requiresAuth(), userController.getAll);
+routes.get('/users', userController.getAll);
 
 // Define a route to get one user by email
-routes.get('/users/:email', requiresAuth(), userController.getUser);
+routes.get('/users/:email', userController.getUser);
 
 // Define a route to add a new user
 routes.post('/users', requiresAuth(), userController.create);

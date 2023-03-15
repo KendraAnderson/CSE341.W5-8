@@ -3,34 +3,44 @@ module.exports = (mongoose) => {
     'meals',
     mongoose.Schema({
       calories: {
-        type: Number
+        type: Number,
+        required: true
       },
       cookTemp: {
-        type: String
+        type: String,
+        required: true
       },
       cookTime: {
-        type: String
+        type: String,
+        required: true
       },
       directions: {
-        type: String
+        type: String,
+        required: true
       },
       ingredientAmounts: {
-        type: Array
+        type: Array,
+        required: true
       },
       ingredientUnits: {
-        type: Array
+        type: Array,
+        required: true
       },
       ingredients: {
-        type: Array
+        type: Array,
+        required: true
       },
       mealName: {
-        type: String
+        type: String,
+        required: true
       },
       prepTime: {
-        type: String
+        type: String,
+        required: true
       },
       servings: {
-        type: Number
+        type: Number,
+        required: true
       }
     })
   );
