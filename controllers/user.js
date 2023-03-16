@@ -47,7 +47,7 @@ const create = (req, res) => {
       return;
     }
     // Hash password
-    const hash = bcrypt.hash(password, 10, function (err, hash) {
+    /*const hash = bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
         return callback(err);
@@ -55,7 +55,7 @@ const create = (req, res) => {
         return hash;
       }
     });
-    req.body.password = hash;
+    req.body.password = hash;*/
     const user = new User(req.body);
 
     user.save()
