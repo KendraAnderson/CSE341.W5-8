@@ -60,7 +60,7 @@ const create = (req, res) => {
       })
       .catch(err => console.error(err.message));
 */
-    bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
+    const hash = bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
       // Store hash in your password database.
       if (err) {
         console.log(err);
