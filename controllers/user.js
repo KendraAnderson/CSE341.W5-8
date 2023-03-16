@@ -47,10 +47,23 @@ const create = (req, res) => {
       return;
     }
     // Hash password
-    const salt = bcrypt.genSalt(10);
-    const hash = bcrypt.hash(password, salt);
-    console.log(password);
-    console.log(hash);
+    const saltRounds = 10;
+    const hash = bcrypt
+      .genSalt(saltRounds)
+      .then(salt => {
+        res.send(`Salt: ${salt}`);
+        return bcrypt.hash(password, salt);
+      })
+      .then(hash => {
+        res.send(`Hash: ${hash}`);
+        // Store hash in your password DB.
+      })
+      .catch(err => console.error(err.message));
+
+
+    //const hash = bcrypt.hash(password, salt);
+    res.send('pommes');
+    res.send('pommes2');
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
