@@ -34,7 +34,42 @@ const getUser = (req, res) => {
 };
 
 // Define a function to create a user
+// Define a function to create a user
 const create = (req, res) => {
+  try {
+    if (!req.body.email || !req.body.password) {
+      res.status(400).send({ message: 'Please fill in all fields!' });
+      return;
+    }
+    const password = req.body.password;
+    const passwordCheck = passwordUtil.passwordPass(password);
+    if (passwordCheck.error) {
+      res.status(400).send({ message: passwordCheck.error });
+      return;
+    }
+    // Hash password
+    /*const hash = bcrypt.hash(password, 10, function (err, hash) {
+      if (err) {
+        //client.close();
+        return callback(err);
+      } else {
+        return hash;
+      }
+    });
+    req.body.password = hash;*/
+    const user = new User(req.body);
+
+    user.save()
+      .then((data) => {
+        res.status(201).send(data);
+        console.log('User created.');
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err || 'Some error occured while creating user.');
+  }
+};
+/*const create = (req, res) => {
   try {
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
@@ -67,21 +102,11 @@ const create = (req, res) => {
       .catch(err => console.error(err.message));
     res.send('pommes');
     res.send('pommes2');
-    /*const hash = bcrypt.hash(password, 10, function (err, hash) {
-      if (err) {
-        //client.close();
-        return callback(err);
-      } else {
-        return hash;
-      }
-    });
-    req.body.password = hash;*/
-
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
   }
-};
+};*/
 
 //Define a function to change a user's data by their email
 const updateUser = async (req, res) => {
