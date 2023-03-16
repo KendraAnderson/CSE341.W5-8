@@ -112,7 +112,7 @@ const create = (req, res) => {
 const updateUser = async (req, res) => {
   try {
 
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
     }
@@ -123,13 +123,13 @@ const updateUser = async (req, res) => {
       return;
     }
     const user = {
-      username: req.body.username,
+      email: req.body.email,
       password: req.body.password
     }
 
-    const username = req.params.username;    
-    const result = await User.replaceOne({ username: username }, user);
-    console.log(`${result.modifiedCount} user(s) updated: ` + username);
+    const email = req.params.email;    
+    const result = await User.replaceOne({ email: email }, user);
+    console.log(`${result.modifiedCount} user(s) updated: ` + email);
     if (result.modifiedCount > 0) {
       res.status(204).send(result);
     }
