@@ -1,7 +1,7 @@
 const db = require('../models');
 const passwordUtil = require('./validation');
 const User = db.user;
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 // Define a function to get all users
 const getAll = (req, res) => {
@@ -47,6 +47,10 @@ const create = (req, res) => {
       return;
     }
     // Hash password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    console.log(password);
+    console.log(hash);
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
@@ -56,7 +60,10 @@ const create = (req, res) => {
       }
     });
     req.body.password = hash;*/
-    const user = new User(req.body);
+    const user = {
+      email: req.body.email,
+      password: hash
+    };
 
     user.save()
       .then((data) => {
