@@ -123,26 +123,26 @@ const updateUser = async (req, res) => {
       return;
     }
     // Hash password
-    bcrypt.hash(password, 10, function (err, hash) {
+    /*bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
         return callback(err);
-      }
-      const newPass = hash;
-      const user = {
-        email: req.body.email,
-        password: newPass
-      }
-      user.save()
-        .then((data) => {
-          res.status(201).send(data);
-          console.log(`User (${user.email}) changed.`);
-        });
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err || 'Some error occured while updating user.');
-  }
+      }*/
+    const newPass = hash;
+    const user = {
+      email: req.body.email,
+      password: newPass
+    }
+    user.save()
+      .then((data) => {
+        res.status(201).send(data);
+        console.log(`User (${user.email}) changed.`);
+      });
+  //});
+} catch (err) {
+  console.log(err);
+  res.status(500).json(err || 'Some error occured while updating user.');
+}
 };
 
 //Define a function to delete a user by email
