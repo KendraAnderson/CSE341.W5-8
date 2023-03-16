@@ -48,7 +48,7 @@ const create = (req, res) => {
     }
     // Hash password
     const saltRounds = 10;
-    /*const hash = bcrypt
+    bcrypt
       .genSalt(saltRounds)
       .then(salt => {
         res.send(`Salt: ${salt}`);
@@ -57,22 +57,18 @@ const create = (req, res) => {
       .then(hash => {
         res.send(`Hash: ${hash}`);
         // Store hash in your password DB.
-      })
-      .catch(err => console.error(err.message));
-*/
-    const hash = bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
-      // Store hash in your password database.
-      if (err) {
-        console.log('error');
-        res.send("error"); 
-      } else {
-        console.log('pas hashed');
-        res.send('Hashed Password:', hash);
-      }
-    });
+        const user = {
+          email: req.body.email,
+          password: hash
+        };
 
-    //const hash = bcrypt.hash(password, salt);
-    console.log('pomme0');
+        user.save()
+          .then((data) => {
+            res.status(201).send(data);
+            console.log('User created.');
+          });
+        res.send('Hashed Password:', hash);
+      }).catch(err => console.error(err.message));
     res.send('pommes');
     res.send('pommes2');
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
@@ -84,16 +80,7 @@ const create = (req, res) => {
       }
     });
     req.body.password = hash;*/
-    const user = {
-      email: req.body.email,
-      password: hash
-    };
 
-    user.save()
-      .then((data) => {
-        res.status(201).send(data);
-        console.log('User created.');
-      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
