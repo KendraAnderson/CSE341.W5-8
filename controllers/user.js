@@ -49,11 +49,7 @@ const create = (req, res) => {
     // Hash password
     const saltRounds = 10;
     bcrypt
-      .genSalt(saltRounds)
-      .then(salt => {
-        res.send(`Salt: ${salt}`);
-        return bcrypt.hash(password, salt);
-      })
+      .hash(password, saltRounds)
       .then(hash => {
         res.send(`Hash: ${hash}`);
         // Store hash in your password DB.
@@ -66,9 +62,9 @@ const create = (req, res) => {
           .then((data) => {
             res.status(201).send(data);
             console.log('User created.');
-          });
-        res.send('Hashed Password:', hash);
-      }).catch(err => console.error(err.message));
+          })
+      })
+      .catch(err => console.error(err.message));
     res.send('pommes');
     res.send('pommes2');
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
