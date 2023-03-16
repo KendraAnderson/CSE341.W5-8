@@ -112,6 +112,35 @@ const create = (req, res) => {
 const updateUser = async (req, res) => {
   try {
 
+    if (!req.body.username || !req.body.password) {
+      res.status(400).send({ message: 'Please fill in all fields!' });
+      return;
+    }
+    const password = req.body.password;
+    const passwordCheck = passwordUtil.passwordPass(password);
+    if (passwordCheck.error) {
+      res.status(400).send({ message: passwordCheck.error });
+      return;
+    }
+    const user = {
+      username: req.body.username,
+      password: req.body.password
+    }
+
+    const username = req.params.username;    
+    const result = await User.replaceOne({ username: username }, user);
+    console.log(`${result.modifiedCount} user(s) updated: ` + username);
+    if (result.modifiedCount > 0) {
+      res.status(204).send(result);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err || 'Some error occured while updating user.');
+  }
+};
+/*const updateUser = async (req, res) => {
+  try {
+
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
@@ -123,15 +152,15 @@ const updateUser = async (req, res) => {
       return;
     }
     // Hash password
-    /*bcrypt.hash(password, 10, function (err, hash) {
+    bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
         return callback(err);
-      }*/
+      }
     const newPass = hash;
     const user = {
       email: req.body.email,
-      password: newPass
+      password: req.body.password
     }
     user.save()
       .then((data) => {
@@ -143,7 +172,7 @@ const updateUser = async (req, res) => {
   console.log(err);
   res.status(500).json(err || 'Some error occured while updating user.');
 }
-};
+};*/
 
 //Define a function to delete a user by email
 const deleteUser = async (req, res) => {
