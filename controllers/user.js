@@ -63,13 +63,16 @@ const create = (req, res) => {
     const hash = bcrypt.hash(plaintextPassword, saltRounds, function (err, hash) {
       // Store hash in your password database.
       if (err) {
-        res.send("error");
+        console.log('error');
+        res.send("error"); 
       } else {
+        console.log('pas hashed');
         res.send('Hashed Password:', hash);
       }
     });
 
     //const hash = bcrypt.hash(password, salt);
+    console.log('pomme0');
     res.send('pommes');
     res.send('pommes2');
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
