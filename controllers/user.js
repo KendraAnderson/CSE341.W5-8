@@ -47,8 +47,8 @@ const create = (req, res) => {
       return;
     }
     // Hash password
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSalt(10);
+    const hash = bcrypt.hash(password, salt);
     console.log(password);
     console.log(hash);
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
@@ -75,60 +75,6 @@ const create = (req, res) => {
     res.status(500).json(err || 'Some error occured while creating user.');
   }
 };
-
-// Define a function to create a user
-/*const create = (req, res) => {
-  try {
-    if (!req.body.email || !req.body.password) {
-      res.status(400).send({ message: 'Please fill in all fields!' });
-      return;
-    }
-    console.log(req.body.email);
-    const email = req.params.email;
-    // Check to see if user already exists then hash
-    User.findOne({ email: email }, function (err, withSameMail) {
-      if (err || withSameMail) {
-        client.close();
-        return callback(err || new Error('the user already exists'));
-      }
-    });
-    const password = req.body.password;
-    // Check password for requirements
-    const passwordCheck = passwordUtil.passwordPass(password);
-    if (passwordCheck.error) {
-      res.status(400).send({ message: passwordCheck.error });
-      return;
-    }
-    // Hash password
-    const hash = bcrypt.hash(password, 10, function (err, hash) {
-      if (err) {
-        //client.close();
-        return callback(err);
-      } else {
-        return hash;
-      }
-    });
-    const user = new User(req.body);
-
-    user.password = hash;
-    //user.email_verified = false;
-    user.email = email;
-    User.insert(user, function (err, inserted) {
-      //client.close();
-      
-      if (err) return callback(err);
-      callback(null);
-    });
-    user.save()
-      .then((data) => {
-        res.status(201).send(data);
-        console.log(`User (${user.email}) created.`);
-      });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err || 'Some error occured while creating user.');
-  }
-};*/
 
 //Define a function to change a user's data by their email
 const updateUser = async (req, res) => {
@@ -161,12 +107,6 @@ const updateUser = async (req, res) => {
           console.log(`User (${user.email}) changed.`);
         });
     });
-    /*const result = await User.replaceOne({ email: email }, user);
-    console.log(`${result.modifiedCount} user(s) updated: ` + email);
-    if (result.modifiedCount > 0) {
-      res.status(204).send(result);
-    }*/
-
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while updating user.');
