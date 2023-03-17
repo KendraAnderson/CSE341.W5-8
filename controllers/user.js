@@ -151,12 +151,15 @@ const updateUser = async (req, res) => {
       return;
     }
     // Check for valid email
-    const email = req.params.email;
     const newEmail = req.body.email;
     if (!util.valEmail(newEmail)) {
       res.status(400).send({ message: 'Email not valid.' });
     } else {
-      const user = new User(req.body);
+      const user = {
+        email: req.body.email,
+        password: req.body.password
+      };
+      const email = req.params.email;
       const result = await User.replaceOne({ email: email }, user);
       if (result.modifiedCount > 0) {
         res.status(204).send({message: 'user update'/*`${result.modifiedCount} user(s) updated: ${email}.`*/});
