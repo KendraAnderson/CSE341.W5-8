@@ -91,28 +91,76 @@ const addMeal = (req, res) => {
 // Define a function to change a meal's data by meal name
 const updateMeal = async (req, res) => {
   try {
-    const meal = {
-      calories: req.body.calories,
+    if (
+      !req.body.calories ||
+      !req.body.cookTemp ||
+      !req.body.cookTime ||
+      !req.body.directions ||
+      !req.body.ingredientAmounts ||
+      !req.body.ingredientUnits ||
+      !req.body.ingredients ||
+      !req.body.mealName ||
+      !req.body.prepTime ||
+      !req.body.servings
+    ) {
+      res.status(400).send({ message: 'Please fill in all fields!' });
+      return;
+    }
+
+    const mealArrays = {
+      ingredientAmounts: req.body.ingredientAmounts,
+      ingredientUnits: req.body.ingredientAmounts,
+      ingredients: req.body.ingredients
+    };
+    const mealStrings = {
       cookTemp: req.body.cookTemp,
       cookTime: req.body.cookTime,
       directions: req.body.directions,
-      ingredientAmounts: req.body.ingredientAmounts,
-      ingredientUnits: req.body.ingredientUnits,
-      ingredients: req.body.ingredients,
       mealName: req.body.mealName,
-      prepTime: req.body.prepTime,
+      prepTime: req.body.prepTime
+    };
+    const mealNums = {
+      calories: req.body.calories,
       servings: req.body.servings
     };
 
-    const mealName = req.params.mealName;
-    const result = await Meal.replaceOne({ mealName: mealName }, meal);
-    console.log(`${result.modifiedCount} meal(s) updated: ` + mealName);
-    if (result.modifiedCount > 0) {
-      res.status(204).send(result);
+    if (!util.valMealArrays(mealArrays)) {
+      res
+        .status(400)
+        .send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
+        return;
+    } else if (!util.valMealNums(mealNums)) {
+      res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
+      return;
+    } else if (!util.valMealStrings(mealStrings)) {
+      res.status(400).send({
+        message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.'
+      });
+      return;
+    } else {
+      const meal = {
+        calories: req.body.calories,
+        cookTemp: req.body.cookTemp,
+        cookTime: req.body.cookTime,
+        directions: req.body.directions,
+        ingredientAmounts: req.body.ingredientAmounts,
+        ingredientUnits: req.body.ingredientUnits,
+        ingredients: req.body.ingredients,
+        mealName: req.body.mealName,
+        prepTime: req.body.prepTime,
+        servings: req.body.servings
+      };
+
+      const mealName = req.params.mealName;
+      const result = await Meal.replaceOne({ mealName: mealName }, meal);
+      if (result.modifiedCount > 0) {
+        res.status(204).send(result);
+        return;
+      }
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json(err || 'Some error occured while updating meal.');
+    res.status(500).send({ message: 'Some error occured while updating user.' });
   }
 };
 
