@@ -54,28 +54,27 @@ const addMeal = (req, res) => {
       ingredientUnits: req.body.ingredientAmounts,
       ingredients: req.body.ingredients
     };
-    /*const mealStrings = {
+    const mealStrings = {
       cookTemp: req.body.cookTemp,
       cookTime: req.body.cookTime,
       directions: req.body.directions,
       mealName: req.body.mealName,
       prepTime: req.body.prepTime
-    };*/
+    };
     const mealNums = {
       calories: req.body.calories,
       servings: req.body.servings
     };
-    /*else if (!util.valMealStrings(mealStrings)) {
-      res.status(400).send({ message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.' });
-    } else if (!util.valMealNums(mealNums)) {
-      res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
-    } */
     if (!util.valMealArrays(mealArrays)) {
       res
         .status(400)
         .send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
     } else if (!util.valMealNums(mealNums)) {
       res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
+    } else if (!util.valMealStrings(mealStrings)) {
+      res.status(400).send({
+        message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.'
+      });
     } else {
       const newMeal = new Meal(req.body);
       newMeal.save().then((data) => {

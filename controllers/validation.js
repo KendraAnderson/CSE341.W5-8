@@ -1,6 +1,3 @@
-//const { check, validationResult } = require('express-validator');
-const validator = require('validator');
-
 const valMealArrays = (meal) => {
   var valid = true;
 
@@ -15,28 +12,26 @@ const valMealArrays = (meal) => {
   return valid;
 };
 
-/*const valMealStrings = (meal) => {
+const valMealStrings = (meal) => {
   var valid = true;
 
-  if (!isString(meal.cookTemp)) {
-    valid = false;
-  } else if (!isString(meal.cookTime)) {
-    valid = false;
-  } else if (!isString(meal.directions)) {
-    valid = false;
-  } else if (!isString(meal.prepTime)) {
-    valid = false;
-  } else if (!isString(meal.servings)) {
+  if (
+    !(typeof meal.cookTemp === 'string') ||
+    !(typeof meal.cookTime === 'string') ||
+    !(typeof meal.directions === 'string') ||
+    !(typeof meal.prepTime === 'string') ||
+    !(typeof meal.servings === 'string')
+  ) {
     valid = false;
   }
 
   return valid;
-};*/
+};
 
 const valMealNums = (meal) => {
   var valid = true;
 
-  if (!(typeof meal.calories === "number") || !(typeof meal.servings === "number")) {
+  if (!(typeof meal.calories === 'number') || !(typeof meal.servings === 'number')) {
     valid = false;
   }
 
@@ -63,4 +58,4 @@ const passwordPass = (passwordToCheck) => {
   return passwordComplexity(complexityOptions, 'Password').validate(passwordToCheck);
 };
 
-module.exports = { valEmail, valMealArrays, /*valMealStrings, */ valMealNums, passwordPass };
+module.exports = { valEmail, valMealArrays, valMealStrings, valMealNums, passwordPass };
