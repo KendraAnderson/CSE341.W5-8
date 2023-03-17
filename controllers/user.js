@@ -52,12 +52,12 @@ const create = (req, res) => {
     if (!util.valEmail(email)) {
       res.status(400).send({ message: 'Email not valid.' });
     } else {
-      User.findOne({ email: user.email }, function (err, withSameMail) {
+      /*User.findOne({ email: user.email }, function (err, withSameMail) {
         if (err || withSameMail) {
           //client.close();
           return callback(err || new Error('User already exists.'));
         }
-      });
+      });*/
       const user = new User(req.body);
 
       user.save()
