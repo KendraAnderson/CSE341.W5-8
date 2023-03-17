@@ -151,7 +151,7 @@ const updateUser = async (req, res) => {
       return;
     }
     const password = req.body.password;
-    const passwordCheck = passwordUtil.passwordPass(password);
+    const passwordCheck = util.passwordPass(password);
     if (passwordCheck.error) {
       res.status(400).send({ message: passwordCheck.error });
       return;

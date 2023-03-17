@@ -70,9 +70,10 @@ const addMeal = (req, res) => {
       res.status(400).send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
     } /*else if (!util.valMealStrings(mealStrings)) {
       res.status(400).send({ message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.' });
-    } */else if (!util.valMealNums(mealNums)) {
+    } else if (!util.valMealNums(mealNums)) {
       res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
-    } else {
+    } */
+    else {
       const newMeal = new Meal(req.body);
       newMeal.save().then((data) => {
         console.log('Meal Created.');
