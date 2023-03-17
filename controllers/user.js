@@ -58,12 +58,36 @@ const create = (req, res) => {
     });
     req.body.password = hash;*/
     const user = new User(req.body);
+    User.findOne({ email: user.email }, function (err, withSameMail) {
+      if (err || withSameMail) {
+        //client.close();
+        return callback(err || new Error('the user already exists'));
+      }
+
+      bcrypt.hash(user.password, 10, function (err, hash) {
+        if (err) {
+          //client.close();
+          return callback(err);
+        }
+
+        user.password = hash;
+        User.insert(user, function (err, inserted) {
+          //client.close();
+
+          if (err) return callback(err);
+          callback(null);
+        });
+      });
+    });
+
+
+    /*const user = new User(req.body);
 
     user.save()
       .then((data) => {
         res.status(201).send(data);
         console.log('User created.');
-      });
+      });*/
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
@@ -111,7 +135,7 @@ const create = (req, res) => {
 //Define a function to change a user's data by their email
 const updateUser = async (req, res) => {
   try {
-
+    
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
