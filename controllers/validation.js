@@ -4,10 +4,13 @@
 const valMealArrays = (meal) => {
   var valid = true;
 
-  if (!Array.isArray(meal.ingredientAmounts) || !Array.isArray(meal.ingredientUnits)
-  || !Array.isArray(meal.ingredients)) {
+  if (
+    !Array.isArray(meal.ingredientAmounts) ||
+    !Array.isArray(meal.ingredientUnits) ||
+    !Array.isArray(meal.ingredients)
+  ) {
     valid = false;
-  } 
+  }
 
   return valid;
 };
@@ -41,7 +44,7 @@ const valMealArrays = (meal) => {
 };*/
 
 const valEmail = (email) => {
-  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
   return regex.test(email);
 };
 

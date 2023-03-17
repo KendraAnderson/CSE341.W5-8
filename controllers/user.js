@@ -1,7 +1,7 @@
 const db = require('../models');
 const util = require('./validation');
 const User = db.user;
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 // Define a function to get all users
 const getAll = (req, res) => {

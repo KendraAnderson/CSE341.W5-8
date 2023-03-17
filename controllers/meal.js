@@ -60,20 +60,21 @@ const addMeal = (req, res) => {
       directions: req.body.directions,
       mealName: req.body.mealName,
       prepTime: req.body.prepTime
-    };*/
+    };
     const mealNums = {
       calories: req.body.calories,
       servings: req.body.servings
-    };
-
-    if (!util.valMealArrays(mealArrays)) {
-      res.status(400).send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
-    } /*else if (!util.valMealStrings(mealStrings)) {
+    };*/
+    /*else if (!util.valMealStrings(mealStrings)) {
       res.status(400).send({ message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.' });
     } else if (!util.valMealNums(mealNums)) {
       res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
     } */
-    else {
+    if (!util.valMealArrays(mealArrays)) {
+      res
+        .status(400)
+        .send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
+    } else {
       const newMeal = new Meal(req.body);
       newMeal.save().then((data) => {
         console.log('Meal Created.');
