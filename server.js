@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/profile', requiresAuth(), (req, res) => {
-    res.send(JSON.stringify(req.oidc.user));
-  });
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 app
   .use(bodyParser.json())
@@ -56,6 +56,6 @@ db.mongoose
     process.exit();
   });
 
-  /*app.listen(port, () => {
+/*app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });*/

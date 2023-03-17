@@ -6,10 +6,9 @@ const bcrypt = require('bcrypt');
 // Define a function to get all users
 const getAll = (req, res) => {
   try {
-    User.find({})
-      .then((data) => {
-        res.send(data);
-      });
+    User.find({}).then((data) => {
+      res.send(data);
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while retrieving users.');
@@ -20,13 +19,12 @@ const getAll = (req, res) => {
 const getUser = (req, res) => {
   try {
     const email = req.params.email;
-    User.find({ email: email })
-      .then((data) => {
-        if (!data[0]) {
-          res.status(404).send({ message: email + ' not found.' });
-        }
-        res.status(200).json(data[0]);
-      });
+    User.find({ email: email }).then((data) => {
+      if (!data[0]) {
+        res.status(404).send({ message: email + ' not found.' });
+      }
+      res.status(200).json(data[0]);
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while retrieving user.');
@@ -60,15 +58,14 @@ const create = (req, res) => {
       });*/
       const user = new User(req.body);
 
-      user.save()
-        .then((data) => {
-          res.status(201).send(data);
-          console.log('User created.');
-        });
+      user.save().then((data) => {
+        res.status(201).send(data);
+        console.log('User created.');
+      });
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send({message: 'Some error occured while creating user.'});
+    res.status(500).send({ message: 'Some error occured while creating user.' });
   }
 };
 // Hash password - unused
@@ -149,7 +146,6 @@ User.findOne({ email: user.email }, function (err, withSameMail) {
 //Define a function to change a user's data by their email
 const updateUser = async (req, res) => {
   try {
-
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
@@ -163,7 +159,7 @@ const updateUser = async (req, res) => {
     const user = {
       email: req.body.email,
       password: req.body.password
-    }
+    };
 
     const email = req.params.email;
     const result = await User.replaceOne({ email: email }, user);

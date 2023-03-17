@@ -1,54 +1,54 @@
-const { check, validationResult } = require('express-validator');
+//const { check, validationResult } = require('express-validator');
 const validator = require('validator');
 
 const valMealArrays = (meal) => {
-  const valid = True;
+  var valid = true;
 
   if (!Array.isArray(meal.ingredientAmounts)) {
-    valid = False;
+    valid = false;
   } else if (!Array.isArray(meal.ingredientUnits)) {
-    valid = False;
+    valid = false;
   } else if (!Array.isArray(meal.ingredients)) {
-    valid = False;
+    valid = false;
   }
 
   return valid;
 };
 
-const valMealStrings = (meal) => {
-  const valid = True;
+/*const valMealStrings = (meal) => {
+  var valid = true;
 
-  /*if (!isString(meal.cookTemp)) {
-    valid = False;
+  if (!isString(meal.cookTemp)) {
+    valid = false;
   } else if (!isString(meal.cookTime)) {
-    valid = False;
+    valid = false;
   } else if (!isString(meal.directions)) {
-    valid = False;
+    valid = false;
   } else if (!isString(meal.prepTime)) {
-    valid = False;
+    valid = false;
   } else if (!isString(meal.servings)) {
-    valid = False;
-  }*/
-
-  return valid;
-}
-
-const valMealNums = (meal) => {
-  const valid = True;
-
-  if (!validator.isNumeric(meal.calories)) {
-    valid = False;
-  } else if (!validator.isNumeric(meal.servings)) {
-    valid = False;
+    valid = false;
   }
 
   return valid;
-}
+};*/
+
+const valMealNums = (meal) => {
+  var valid = true;
+
+  if (!validator.isNumeric(meal.calories)) {
+    valid = false;
+  } else if (!validator.isNumeric(meal.servings)) {
+    valid = false;
+  }
+
+  return valid;
+};
 
 const valEmail = (email) => {
   const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   return regex.test(email);
-}
+};
 
 const passwordComplexity = require('joi-password-complexity');
 const complexityOptions = {
@@ -65,4 +65,4 @@ const passwordPass = (passwordToCheck) => {
   return passwordComplexity(complexityOptions, 'Password').validate(passwordToCheck);
 };
 
-module.exports = { valEmail, valMealArrays, valMealStrings, valMealNums, passwordPass }
+module.exports = { valEmail, valMealArrays, valMealStrings, valMealNums, passwordPass };
