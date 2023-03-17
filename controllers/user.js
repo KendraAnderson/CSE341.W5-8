@@ -47,7 +47,7 @@ const create = (req, res) => {
       res.status(400).send({ message: passwordCheck.error });
       return;
     }
-    // Hash password
+    // Hash password - unused
     /*const hash = bcrypt.hash(password, 10, function (err, hash) {
       if (err) {
         //client.close();
@@ -56,7 +56,9 @@ const create = (req, res) => {
         return hash;
       }
     });
-    req.body.password = hash;*/
+    req.body.password = hash;
+
+    // Another unused hash version
     const user = new User(req.body);
     User.findOne({ email: user.email }, function (err, withSameMail) {
       if (err || withSameMail) {
@@ -78,21 +80,22 @@ const create = (req, res) => {
           callback(null);
         });
       });
-    });
+    });*/
 
 
-    /*const user = new User(req.body);
+    const user = new User(req.body);
 
     user.save()
       .then((data) => {
         res.status(201).send(data);
         console.log('User created.');
-      });*/
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
   }
 };
+// Unused previous version of create with hash
 /*const create = (req, res) => {
   try {
     if (!req.body.email || !req.body.password) {
