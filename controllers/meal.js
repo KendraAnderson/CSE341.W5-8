@@ -1,6 +1,6 @@
 const db = require('../models');
 const Meal = db.meal;
-const mealUtil = require('./validation');
+const util = require('./validation');
 
 // Define a function to get all meals
 const getMeals = (req, res) => {
@@ -11,7 +11,7 @@ const getMeals = (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(500).json( err || 'Some error occured while retrieving meals.' );
+    res.status(500).json(err || 'Some error occured while retrieving meals.');
   }
 };
 
@@ -28,7 +28,7 @@ const getOneMeal = (req, res) => {
       });
   } catch (err) {
     console.log(err);
-    res.status(500).json( err || 'Some error occured while retrieving meal.' );
+    res.status(500).json(err || 'Some error occured while retrieving meal.');
   }
 };
 
@@ -43,17 +43,40 @@ const addMeal = (req, res) => {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
     }
-    const newMeal = new Meal(req.body);
-    mealUtil.validateMeal(newMeal);
-    //if(!validMeal) {console.log("failed val");};
-    newMeal.save()
-      .then((data) => {
-        console.log(data);
-        res.status(201).send(data);
-      });
+
+    const mealArrays = {
+      ingredientAmounts: req.body.ingredientAmounts,
+      ingredientUnits: req.body.ingredientAmounts,
+      ingredients: req.body.ingredients
+    }
+    const mealStrings = {
+      cookTemp: req.body.cookTemp,
+      cookTime: req.body.cookTime,
+      directions: req.body.directions,
+      mealName: req.body.mealName,
+      prepTime: req.body.prepTime
+    }
+    const mealNums = {
+      calories: req.body.calories,
+      servings: req.body.servings
+    }
+
+    if (!util.valMealArrays(mealArrays)) {
+      res.status(400).send({ message: 'Ingredient Amounts, Ingredient Units, and Ingredients must be arrays.' });
+    } else if (!util.valMealStrings(mealStrings)) {
+      res.status(400).send({ message: 'Cook Temp, Cook Time, Directions, Prep Time, and Meal Name must be strings.' });
+    } else if (!util.valMealNums(mealNums)) {
+      res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
+    } else {
+      newMeal.save()
+        .then((data) => {
+          console.log(data);
+          res.status(201).send(data);
+        });
+    }
   } catch (err) {
     console.log(err);
-    res.status(500).json( err || 'Some error occured while creating the meal.' );
+    res.status(500).send({message: 'Some error occured while creating the meal.'});
   }
 };
 
@@ -71,7 +94,7 @@ const updateMeal = async (req, res) => {
       ingredients: req.body.ingredients,
       mealName: req.body.mealName,
       prepTime: req.body.prepTime,
-      servings: req.body.servings,
+      servings: req.body.servings
     }
 
     const mealName = req.params.mealName;
@@ -82,7 +105,7 @@ const updateMeal = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json( err || 'Some error occured while updating meal.' );
+    res.status(500).json(err || 'Some error occured while updating meal.');
   }
 };
 
