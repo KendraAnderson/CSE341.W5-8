@@ -159,12 +159,12 @@ const updateUser = async (req, res) => {
       const result = await User.replaceOne({ email: email }, user);
       console.log(`${result.modifiedCount} user(s) updated: ` + email);
       if (result.modifiedCount > 0) {
-        res.status(204).send({message: `${result.modifiedCount} user(s) updated: ${email}.`});
+        res.status(204).send({ message: `${result.modifiedCount} user(s) updated: ${email}.` });
       }
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send({message: 'Some error occured while updating user.' });
+    res.status(500).send({ message: 'Some error occured while updating user.' });
   }
 };
 /*const updateUser = async (req, res) => {
