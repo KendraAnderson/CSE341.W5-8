@@ -68,6 +68,7 @@ const addMeal = (req, res) => {
     } else if (!util.valMealNums(mealNums)) {
       res.status(400).send({ message: 'Calories, and Servings must be numbers.' });
     } else {
+      const newMeal = new Meal(req.body);
       newMeal.save()
         .then((data) => {
           console.log(data);
