@@ -71,7 +71,7 @@ const addMeal = (req, res) => {
       const newMeal = new Meal(req.body);
       newMeal.save()
         .then((data) => {
-          console.log(data);
+          console.log('Meal Created.');
           res.status(201).send(data);
         });
     }

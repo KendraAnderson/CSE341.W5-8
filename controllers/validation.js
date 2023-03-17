@@ -1,13 +1,14 @@
 const { check, validationResult } = require('express-validator');
+const validator = require('validator');
 
 const valMealArrays = (meal) => {
   const valid = True;
 
-  if (!isArray(meal.ingredientAmounts)) {
+  if (!Array.isArray(meal.ingredientAmounts)) {
     valid = False;
-  } else if (!isArray(meal.ingredientUnits)) {
+  } else if (!Array.isArray(meal.ingredientUnits)) {
     valid = False;
-  } else if (!isArray(meal.ingredients)) {
+  } else if (!Array.isArray(meal.ingredients)) {
     valid = False;
   }
 
@@ -17,7 +18,7 @@ const valMealArrays = (meal) => {
 const valMealStrings = (meal) => {
   const valid = True;
 
-  if (!isString(meal.cookTemp)) {
+  /*if (!isString(meal.cookTemp)) {
     valid = False;
   } else if (!isString(meal.cookTime)) {
     valid = False;
@@ -27,7 +28,7 @@ const valMealStrings = (meal) => {
     valid = False;
   } else if (!isString(meal.servings)) {
     valid = False;
-  }
+  }*/
 
   return valid;
 }
@@ -35,9 +36,9 @@ const valMealStrings = (meal) => {
 const valMealNums = (meal) => {
   const valid = True;
 
-  if (!isNumeric(meal.calories)) {
+  if (!validator.isNumeric(meal.calories)) {
     valid = False;
-  } else if (!isNumeric(meal.servings)) {
+  } else if (!validator.isNumeric(meal.servings)) {
     valid = False;
   }
 
