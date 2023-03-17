@@ -57,7 +57,7 @@ const create = (req, res) => {
           //client.close();
           return callback(err || new Error('User already exists.'));
         }
-      })
+      });
       const user = new User(req.body);
 
       user.save()
