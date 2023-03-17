@@ -36,7 +36,7 @@ const valMealArrays = (meal) => {
 const valMealNums = (meal) => {
   var valid = true;
 
-  if (!validator.isNumeric(meal.calories) || !validator.isNumeric(meal.servings)) {
+  if (!(typeof meal.calories === "number") || !(typeof meal.servings === "number")) {
     valid = false;
   }
 
