@@ -65,4 +65,4 @@ const passwordPass = (passwordToCheck) => {
   return passwordComplexity(complexityOptions, 'Password').validate(passwordToCheck);
 };
 
-module.exports = { valEmail, valMealArrays, valMealStrings, valMealNums, passwordPass };
+module.exports = { valEmail, valMealArrays, /*valMealStrings, */valMealNums, passwordPass };
