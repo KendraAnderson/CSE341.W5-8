@@ -152,7 +152,8 @@ const updateUser = async (req, res) => {
     }
     // Check for valid email
     const email = req.params.email;
-    if (!util.valEmail(email)) {
+    const newEmail = req.body.email;
+    if (!util.valEmail(newEmail)) {
       res.status(400).send({ message: 'Email not valid.' });
     } else {
       const user = new User(req.body);
