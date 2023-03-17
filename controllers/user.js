@@ -161,21 +161,10 @@ const updateUser = async (req, res) => {
       if (result.modifiedCount > 0) {
         res.status(204).send(result);
       }
-      /*user.save().then((data) => {
-        res.status(201).send(data);
-        console.log('User created.');
-      });*/
     }
-
-
-    /*const user = {
-      email: req.body.email,
-      password: req.body.password
-    };*/
-
   } catch (err) {
     console.log(err);
-    res.status(500).json(err || 'Some error occured while updating user.');
+    res.status(500).send({message: 'Some error occured while updating user.' });
   }
 };
 /*const updateUser = async (req, res) => {
