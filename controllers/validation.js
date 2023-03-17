@@ -17,6 +17,11 @@ const validateMeal = (req, res, next) => {
   next;
 };
 
+const valEmail = (email) => {
+  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  return regex.test(email);
+}
+
 const passwordComplexity = require('joi-password-complexity');
 const complexityOptions = {
   min: 8,
@@ -32,4 +37,4 @@ const passwordPass = (passwordToCheck) => {
   return passwordComplexity(complexityOptions, 'Password').validate(passwordToCheck);
 };
 
-module.exports = { validateMeal, passwordPass }
+module.exports = { valEmail, validateMeal, passwordPass }

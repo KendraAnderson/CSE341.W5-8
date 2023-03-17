@@ -1,5 +1,5 @@
 const db = require('../models');
-const passwordUtil = require('./validation');
+const util = require('./validation');
 const User = db.user;
 const bcrypt = require('bcrypt');
 
@@ -34,67 +34,78 @@ const getUser = (req, res) => {
 };
 
 // Define a function to create a user
-// Define a function to create a user
 const create = (req, res) => {
   try {
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
     }
+    // Check that password meets requirements
     const password = req.body.password;
-    const passwordCheck = passwordUtil.passwordPass(password);
+    const passwordCheck = util.passwordPass(password);
     if (passwordCheck.error) {
       res.status(400).send({ message: passwordCheck.error });
       return;
     }
-    // Hash password - unused
-    /*const hash = bcrypt.hash(password, 10, function (err, hash) {
-      if (err) {
-        //client.close();
-        return callback(err);
-      } else {
-        return hash;
-      }
-    });
-    req.body.password = hash;
-
-    // Another unused hash version
-    const user = new User(req.body);
-    User.findOne({ email: user.email }, function (err, withSameMail) {
-      if (err || withSameMail) {
-        //client.close();
-        return callback(err || new Error('the user already exists'));
-      }
-
-      bcrypt.hash(user.password, 10, function (err, hash) {
-        if (err) {
+    // Check for valid email
+    const email = req.body.email;
+    if (!util.valEmail(email)) {
+      res.status(400).send({ message: 'Email not valid.' });
+    } else {
+      User.findOne({ email: user.email }, function (err, withSameMail) {
+        if (err || withSameMail) {
           //client.close();
-          return callback(err);
+          return callback(err || new Error('User already exists.'));
         }
-        res.send("pommes" + hash);
-        user.password = hash;
-        User.insert(user, function (err, inserted) {
-          //client.close();
+      })
+      const user = new User(req.body);
 
-          if (err) return callback(err);
-          callback(null);
+      user.save()
+        .then((data) => {
+          res.status(201).send(data);
+          console.log('User created.');
         });
-      });
-    });*/
-
-
-    const user = new User(req.body);
-
-    user.save()
-      .then((data) => {
-        res.status(201).send(data);
-        console.log('User created.');
-      });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while creating user.');
   }
 };
+// Hash password - unused
+/*const hash = bcrypt.hash(password, 10, function (err, hash) {
+  if (err) {
+    //client.close();
+    return callback(err);
+  } else {
+    return hash;
+  }
+});
+req.body.password = hash;
+
+// Another unused hash version
+const user = new User(req.body);
+User.findOne({ email: user.email }, function (err, withSameMail) {
+  if (err || withSameMail) {
+    //client.close();
+    return callback(err || new Error('the user already exists'));
+  }
+
+  bcrypt.hash(user.password, 10, function (err, hash) {
+    if (err) {
+      //client.close();
+      return callback(err);
+    }
+    res.send("pommes" + hash);
+    user.password = hash;
+    User.insert(user, function (err, inserted) {
+      //client.close();
+
+      if (err) return callback(err);
+      callback(null);
+    });
+  });
+});*/
+
 // Unused previous version of create with hash
 /*const create = (req, res) => {
   try {
@@ -138,7 +149,7 @@ const create = (req, res) => {
 //Define a function to change a user's data by their email
 const updateUser = async (req, res) => {
   try {
-    
+
     if (!req.body.email || !req.body.password) {
       res.status(400).send({ message: 'Please fill in all fields!' });
       return;
@@ -154,7 +165,7 @@ const updateUser = async (req, res) => {
       password: req.body.password
     }
 
-    const email = req.params.email;    
+    const email = req.params.email;
     const result = await User.replaceOne({ email: email }, user);
     console.log(`${result.modifiedCount} user(s) updated: ` + email);
     if (result.modifiedCount > 0) {
