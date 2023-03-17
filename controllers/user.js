@@ -154,6 +154,7 @@ const updateUser = async (req, res) => {
     const newEmail = req.body.email;
     if (!util.valEmail(newEmail)) {
       res.status(400).send({ message: 'Email not valid.' });
+      return;
     } else {
       const user = {
         email: req.body.email,
@@ -162,12 +163,14 @@ const updateUser = async (req, res) => {
       const email = req.params.email;
       const result = await User.replaceOne({ email: email }, user);
       if (result.modifiedCount > 0) {
-        res.status(204).send({message: 'user update'/*`${result.modifiedCount} user(s) updated: ${email}.`*/});
+        //res.status(204).send({message: 'user update'/*`${result.modifiedCount} user(s) updated: ${email}.`*/});
+        res.status(204).send(result);
+        return;
       }
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send({message: 'Some error occured while updating user.' });
+    res.status(500).send({ message: 'Some error occured while updating user.' });
   }
 };
 /*const updateUser = async (req, res) => {
