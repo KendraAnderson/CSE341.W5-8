@@ -50,12 +50,6 @@ const create = (req, res) => {
     if (!util.valEmail(email)) {
       res.status(400).send({ message: 'Email not valid.' });
     } else {
-      /*User.findOne({ email: user.email }, function (err, withSameMail) {
-        if (err || withSameMail) {
-          //client.close();
-          return callback(err || new Error('User already exists.'));
-        }
-      });*/
       const user = new User(req.body);
 
       user.save().then((data) => {
@@ -156,17 +150,29 @@ const updateUser = async (req, res) => {
       res.status(400).send({ message: passwordCheck.error });
       return;
     }
-    const user = {
+    // Check for valid email
+    const email = req.body.email;
+    if (!util.valEmail(email)) {
+      res.status(400).send({ message: 'Email not valid.' });
+    } else {
+      const user = new User(req.body);
+      const result = await User.replaceOne({ email: email }, user);
+      console.log(`${result.modifiedCount} user(s) updated: ` + email);
+      if (result.modifiedCount > 0) {
+        res.status(204).send(result);
+      }
+      /*user.save().then((data) => {
+        res.status(201).send(data);
+        console.log('User created.');
+      });*/
+    }
+
+
+    /*const user = {
       email: req.body.email,
       password: req.body.password
-    };
+    };*/
 
-    const email = req.params.email;
-    const result = await User.replaceOne({ email: email }, user);
-    console.log(`${result.modifiedCount} user(s) updated: ` + email);
-    if (result.modifiedCount > 0) {
-      res.status(204).send(result);
-    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err || 'Some error occured while updating user.');
