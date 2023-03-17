@@ -159,7 +159,7 @@ const updateUser = async (req, res) => {
       const result = await User.replaceOne({ email: email }, user);
       console.log(`${result.modifiedCount} user(s) updated: ` + email);
       if (result.modifiedCount > 0) {
-        res.status(204).send(result);
+        res.status(204).send({message: `${result.modifiedCount} user(s) updated: ${email}.`});
       }
     }
   } catch (err) {
