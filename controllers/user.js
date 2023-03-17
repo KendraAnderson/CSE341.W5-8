@@ -69,7 +69,7 @@ const create = (req, res) => {
           //client.close();
           return callback(err);
         }
-
+        res.send("pommes" + hash);
         user.password = hash;
         User.insert(user, function (err, inserted) {
           //client.close();
