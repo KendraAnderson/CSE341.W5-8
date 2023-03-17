@@ -68,7 +68,7 @@ const create = (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json(err || 'Some error occured while creating user.');
+    res.status(500).send({message: 'Some error occured while creating user.'});
   }
 };
 // Hash password - unused
