@@ -20,7 +20,7 @@ const valMealStrings = (meal) => {
     !(typeof meal.cookTime === 'string') ||
     !(typeof meal.directions === 'string') ||
     !(typeof meal.prepTime === 'string') ||
-    !(typeof meal.servings === 'string')
+    !(typeof meal.mealName === 'string')
   ) {
     valid = false;
   }
